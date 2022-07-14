@@ -14,7 +14,6 @@ import router from './router'
 
 import '@/icons' // icon
 import '@/permission' // permission control
-
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -30,7 +29,11 @@ Vue.use(ElementUI, { locale })
 // Vue.use(ElementUI)
 
 Vue.config.productionTip = false
-
+// 批量引入自定义指令(简化自定义指令的写法)
+import * as obj from '@/directives'// 可以引入全部按需导出的自定义指令，得到一个对象
+Object.keys(obj).forEach(item => {
+  Vue.directive(item, obj[item])
+})
 new Vue({
   el: '#app',
   router,

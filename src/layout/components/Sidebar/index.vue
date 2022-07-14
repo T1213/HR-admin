@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'has-logo':showLogo}">
+  <div :class="{ 'has-logo': showLogo }">
     <logo v-if="showLogo" :collapse="isCollapse" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
@@ -12,7 +12,12 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
+        <sidebar-item
+          v-for="route in routes"
+          :key="route.path"
+          :item="route"
+          :base-path="route.path"
+        />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -30,10 +35,10 @@ export default {
     ...mapGetters([
       'sidebar'
     ]),
-    routes() {
+    routes () {
       return this.$router.options.routes
     },
-    activeMenu() {
+    activeMenu () {
       const route = this.$route
       const { meta, path } = route
       // if set path, the sidebar will highlight the path you set
@@ -42,15 +47,49 @@ export default {
       }
       return path
     },
-    showLogo() {
+    showLogo () {
       return this.$store.state.settings.sidebarLogo
     },
-    variables() {
+    variables () {
       return variables
     },
-    isCollapse() {
+    isCollapse () {
       return !this.sidebar.opened
     }
   }
 }
 </script>
+<style lang="scss" scope>
+::v-deep.scrollbar-wrapper {
+  background: url("~@/./assets/common/leftnavBg.png") no-repeat 0 100%;
+}
+
+::v-deep.el-menu {
+  border: none;
+  height: 100%;
+  width: 100% !important;
+  a {
+    li {
+      .svg-icon {
+        color: #fff;
+        font-size: 18px;
+        vertical-align: middle;
+        .icon {
+          color: #fff;
+        }
+      }
+      span {
+        color: #fff;
+      }
+      &:hover {
+        .svg-icon {
+          color: #43a7fe;
+        }
+        span {
+          color: #43a7fe;
+        }
+      }
+    }
+  }
+}
+</style>
